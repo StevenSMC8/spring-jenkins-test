@@ -7,17 +7,19 @@ pipeline
         stages
         {
           stage('Install JDK 17') {
-            script {
-                // Download and install JDK 17
-                sh '''
-                wget https://download.java.net/java/17/latest/jdk-17_linux-x64_bin.tar.gz
-                tar -xzf jdk-17_linux-x64_bin.tar.gz
-                export JAVA_HOME=$(pwd)/jdk-17
-                export PATH=$JAVA_HOME/bin:$PATH
-                echo "JAVA_HOME=$JAVA_HOME"
-                echo "PATH=$PATH"
-                java -version
-                '''
+            steps {
+                script {
+                    // Download and install JDK 17
+                    sh '''
+                    wget https://download.java.net/java/17/latest/jdk-17_linux-x64_bin.tar.gz
+                    tar -xzf jdk-17_linux-x64_bin.tar.gz
+                    export JAVA_HOME=$(pwd)/jdk-17
+                    export PATH=$JAVA_HOME/bin:$PATH
+                    echo "JAVA_HOME=$JAVA_HOME"
+                    echo "PATH=$PATH"
+                    java -version
+                    '''
+                }
             }
           }
           stage('Build App')

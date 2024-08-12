@@ -10,7 +10,7 @@ pipeline
           {
             steps
              {
-              git credentialsId: 'my-git-secret', branch: 'steven-spring-mvc-demo', url: 'https://bsgafrica@dev.azure.com/bsgafrica/Tech-Project-Prep/_git/fnb-ocep-sample-spring-mvc-consolidated'
+              git branch: 'main', url: 'https://github.com/StevenSMC8/spring-jenkins-test.git'
               script {
                   def pom = readMavenPom file: 'pom.xml'
                   version = pom.version

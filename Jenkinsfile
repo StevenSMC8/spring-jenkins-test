@@ -22,14 +22,16 @@ pipeline
           }
           stage('Build App')
           {
-            steps
-             {
-              git branch: 'main', url: 'https://github.com/StevenSMC8/spring-jenkins-test.git'
-              script {
-                  def pom = readMavenPom file: 'pom.xml'
-                  version = pom.version
-              }
-              sh "mvn install"
+            steps {
+                // Ensure JAVA_HOME and PATH are set for this stage
+                withEnv(["JAVA_HOME=${pwd()}/jdk-17", "PATH=${pwd()}/jdk-17/bin:${env.PATH}"]) {
+                    git branch: 'main', url: 'https://github.com/StevenSMC8/spring-jenkins-test.git'
+                    script {
+                        def pom = readMavenPom file: 'pom.xml'
+                        version = pom.version
+                    }
+                    sh "mvn install"
+                }
             }
           }
           stage('Create Image Builder') {

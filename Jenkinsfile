@@ -1,7 +1,10 @@
 pipeline
     {
        agent {
-            label 'maven'
+            docker {
+                image 'default-route-openshift-image-registry.apps.sandbox-m2.ll9k.p1.openshiftapps.com/stevencurtis-dev/openjdk17'
+                args '--privileged'  // Optional: Use this if required by your environment
+            }
         }
 
         stages

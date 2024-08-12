@@ -1,27 +1,23 @@
 pipeline
     {
-       agent {
-        docker { image 'maven:3.8.6-openjdk-17' }
-       }
-
+        agent {
+            label 'maven'
+        }
         stages
         {
           stage('Build App')
           {
             steps {
-                // Ensure JAVA_HOME and PATH are set for this stage
-                withEnv(["JAVA_HOME=${pwd()}/jdk-17", "PATH=${pwd()}/jdk-17/bin:${env.PATH}"]) {
-                    git branch: 'main', url: 'https://github.com/StevenSMC8/spring-jenkins-test.git'
-                    sh 'echo $JAVA_HOME'
-                    sh 'echo $PATH'
-                    sh 'java -version'
-                    sh 'mvn -version'
-                    script {
-                        def pom = readMavenPom file: 'pom.xml'
-                        version = pom.version
-                    }
-                    sh "mvn install"
+                git branch: 'main', url: 'https://github.com/StevenSMC8/spring-jenkins-test.git'
+                sh 'echo $JAVA_HOME'
+                sh 'echo $PATH'
+                sh 'java -version'
+                sh 'mvn -version'
+                script {
+                    def pom = readMavenPom file: 'pom.xml'
+                    version = pom.version
                 }
+                sh "mvn install"
             }
           }
           stage('Create Image Builder') {

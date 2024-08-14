@@ -44,7 +44,7 @@ pipeline
             steps {
               sh "rm -rf ocp && mkdir -p ocp/deployments"
               sh "pwd && ls -la target "
-              sh "cp target/openshiftjenkins-0.0.1-SNAPSHOT.jar ocp/deployments"
+              sh "cp target/spring-boot-thymeleaf-0.0.1-SNAPSHOT.jar ocp/deployments"
 
               script {
                 openshift.withCluster() {
